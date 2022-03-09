@@ -132,7 +132,7 @@ function renderInfo(data, elements) {
 
     const divTtlImg = createEl('div', {},
         createEl('h1', {}, computer.title),
-        createEl('img', { src: '/computer-app' + computer.image })
+        createEl('img', { src: '/computer' + computer.image })
     );
 
     const divInfo = createEl('div', {},
