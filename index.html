@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Computer Store</title>
+    <link rel="stylesheet" href="/computer-app/style/style.css" />
+    <script type="module" src="/computer-app/src/index.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <h1>Computer Store</h1>
+        </nav>
+    </header>
+
+    <main>
+        <section class="wrapper" id="main_section">
+            <article class="box background" id="bank_account">
+                <h1 id="bank_name">Deutsche Bank</h1>
+                <div class="balance-wrapper">
+                    <p id="bank_balance">Balance:</p>
+                    <p id="curr-amount-bank">0.00 €</p>
+                </div>
+                <button id="get_loan">Get Loan</button>
+            </article>
+
+            <article class="box background" id="loan_section">
+                <h1>Loan Overview</h1>
+                <div class="balance-wrapper">
+                    <p id="loan_balance">Balance:</p>
+                    <p id="curr-amount-loan">0.00 €</p>
+                </div>
+            </article>
+
+            <article class="box background" id="work_section">
+                <h1>Work</h1>
+                <div class="balance-wrapper">
+                    <p id="pay">Pay:</p>
+                    <p id="curr-amount-pay">0.00 €</p>
+                </div>
+                <div class="btn-wrapper">
+                    <button id="save_btn">Bank</button>
+                    <button id="work_btn">Work</button>
+                </div>
+            </article>
+        </section>
+
+        <section class="wrapper" id="store">
+            <article class="order background">
+                <article id="dropdown">
+                    <select id="list">
+                            <option value="1" selected disabled hidden>
+                                Select Computer
+                            </option>
+                        </select>
+                </article>
+
+                <article id="details"></article>
+            </article>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; Petar Dimitrov</p>
+    </footer>
+</body>
+
+</html>
