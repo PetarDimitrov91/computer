@@ -1,5 +1,7 @@
-function getCurrAmount(currAmountEl) {
-    return Number(currAmountEl.textContent.split(/\s+/)[0]);
+import { modal, closeBtn, messageEl } from './index.js';
+
+function formatAcc(account) {
+    return new Intl.NumberFormat('de-DE', { style: 'currency', currency: 'EUR' }).format(account);
 }
 
 function createEl(type, attr, ...content) {
@@ -18,4 +20,19 @@ function createEl(type, attr, ...content) {
     return element;
 }
 
-export { getCurrAmount, createEl };
+function showModal(text) {
+    messageEl.textContent = text;
+    modal.style.display = 'block';
+
+    closeBtn.onclick = () => {
+        modal.style.display = 'none';
+        messageEl.textContent = '';
+    };
+
+    setTimeout(() => {
+        modal.style.display = 'none';
+        messageEl.textContent = '';
+    }, 3500);
+}
+
+export { formatAcc, createEl, showModal };
