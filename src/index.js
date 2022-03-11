@@ -18,12 +18,14 @@ const saveBtn = document.querySelector('#save_btn');
 
 const currAmtPayEl = document.querySelector('#curr-amount-pay');
 const currAmtBankEl = document.querySelector('#curr-amount-bank');
-const currLoanBlnEl = document.querySelector('#curr-amount-loan');
+let currLoanBlnEl;
 const selectEl = document.querySelector('#list');
 
-const loanSection = document.querySelector('#loan_section');
+let loanSection;
 const dropdownSection = document.querySelector('#dropdown');
 const detailsSection = document.querySelector('#details');
+const mainSection = document.querySelector('#main_section');
+const workSection = document.querySelector('#work_section');
 
 async function start() {
     const data = await getData();
@@ -39,26 +41,26 @@ workBtn.addEventListener('click', () => {
 
 saveBtn.addEventListener('click', () => {
     if (hasLoan) {
-        const afterLoan = payAcc * 0.9;
+        const afterPayment = payAcc * 0.9;
+        const payment = loanAcc - (payAcc - afterPayment);
 
-        const payment = loanAcc - (payAcc - afterLoan);
         loanAcc = payment;
 
         currLoanBlnEl.textContent = payment <= 0 ? formatAcc(0) : formatAcc(payment);
 
-        payAcc = afterLoan;
+        payAcc = afterPayment;
 
         if (payment <= 0) {
             loanAcc = 0;
             hasLoan = false;
             bankAcc += Math.abs(payment);
-            const repayBtn = document.querySelector('#repay-btn');
-            repayBtn ? repayBtn.remove() : null;
+            loanSection.remove();
         }
     }
 
     bankAcc = bankAcc + payAcc;
     currAmtBankEl.textContent = formatAcc(bankAcc);
+
     payAcc = 0;
     currAmtPayEl.textContent = formatAcc(payAcc);
 });
@@ -71,16 +73,26 @@ loanBtn.addEventListener('click', () => {
         return;
     }
 
-    currLoanBlnEl.textContent = formatAcc(reqAmt);
+    const loanSec = createEl('article', { className: 'box background', id: 'loan_section' },
+        createEl('h1', {}, 'Loan Overview'),
+        createEl('div', { className: 'balance-wrapper' },
+            createEl('p', { id: 'loan_balance' }, 'Balance:'),
+            createEl('p', { id: 'curr-amount-loan' }, formatAcc(reqAmt))
+        ),
+        createEl('button', { id: 'repay-btn' }, 'Repay Loan')
+    );
+
+
+    mainSection.insertBefore(loanSec, workSection);
+
+    currLoanBlnEl = document.querySelector('#curr-amount-loan');
+    loanSection = document.querySelector('#loan_section');
 
     loanAcc += reqAmt;
     bankAcc += reqAmt;
     hasLoan = true;
 
     currAmtBankEl.textContent = formatAcc(bankAcc);
-
-    const repayLoanBtn = createEl('button', { id: 'repay-btn' }, 'Repay Loan');
-    loanSection.appendChild(repayLoanBtn);
 
     const repayBtn = document.querySelector('#repay-btn');
 
@@ -184,8 +196,8 @@ function repay() {
 
         currLoanBlnEl.textContent = formatAcc(loanAcc);
         hasLoan = false;
+        loanSection.remove();
 
-        document.querySelector('#repay-btn').remove();
         return;
     }
 
