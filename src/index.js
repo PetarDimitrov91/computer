@@ -178,7 +178,7 @@ function buy(data, ev) {
     document.querySelector('#stock').textContent =
         'Stock: ' + data[computerId - 1].stock;
 
-    showModal('You are now the owner of the new laptop!');
+    showModal('You are now owner of a new laptop!');
 }
 
 function repay() {
