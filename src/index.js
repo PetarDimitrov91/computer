@@ -190,10 +190,12 @@ function repay() {
     loanAcc -= payAcc;
 
     if (loanAcc <= 0) {
-        currAmtPayEl.textContent = formatAcc(Math.abs(loanAcc));
-        payAcc = Math.abs(loanAcc);
+        currAmtPayEl.textContent = formatAcc(0);
+        bankAcc += Math.abs(loanAcc);
+        payAcc = 0;
         loanAcc = 0;
 
+        currAmtBankEl.textContent = formatAcc(bankAcc);
         currLoanBlnEl.textContent = formatAcc(loanAcc);
         hasLoan = false;
         loanSection.remove();
