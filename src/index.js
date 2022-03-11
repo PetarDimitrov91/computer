@@ -12,9 +12,9 @@ const modal = document.querySelector('#myModal');
 const closeBtn = document.querySelector('#closeBtn');
 const messageEl = document.querySelector('#message');
 
-const loanBtnEl = document.querySelector('#get_loan');
-const workBtnEl = document.querySelector('#work_btn');
-const saveBtnEl = document.querySelector('#save_btn');
+const loanBtn = document.querySelector('#get_loan');
+const workBtn = document.querySelector('#work_btn');
+const saveBtn = document.querySelector('#save_btn');
 
 const currAmtPayEl = document.querySelector('#curr-amount-pay');
 const currAmtBankEl = document.querySelector('#curr-amount-bank');
@@ -32,26 +32,26 @@ async function start() {
     selectEl.addEventListener('change', renderInfo.bind(null, data));
 }
 
-workBtnEl.addEventListener('click', () => {
+workBtn.addEventListener('click', () => {
     payAcc += 100.0;
     currAmtPayEl.textContent = formatAcc(payAcc);
 });
 
-saveBtnEl.addEventListener('click', () => {
+saveBtn.addEventListener('click', () => {
     if (hasLoan) {
         const afterLoan = payAcc * 0.9;
 
-        const calc = loanAcc - (payAcc - afterLoan);
-        loanAcc = calc;
+        const payment = loanAcc - (payAcc - afterLoan);
+        loanAcc = payment;
 
-        currLoanBlnEl.textContent = calc <= 0 ? formatAcc(0) : formatAcc(calc);
+        currLoanBlnEl.textContent = payment <= 0 ? formatAcc(0) : formatAcc(payment);
 
         payAcc = afterLoan;
 
-        if (calc <= 0) {
+        if (payment <= 0) {
             loanAcc = 0;
             hasLoan = false;
-            bankAcc += Math.abs(calc);
+            bankAcc += Math.abs(payment);
             const repayBtn = document.querySelector('#repay-btn');
             repayBtn ? repayBtn.remove() : null;
         }
@@ -63,7 +63,7 @@ saveBtnEl.addEventListener('click', () => {
     currAmtPayEl.textContent = formatAcc(payAcc);
 });
 
-loanBtnEl.addEventListener('click', () => {
+loanBtn.addEventListener('click', () => {
     const reqAmt = Number(window.prompt('How much money do you want to loan'));
 
     if (!reqAmt || reqAmt > bankAcc * 2 || hasLoan) {
